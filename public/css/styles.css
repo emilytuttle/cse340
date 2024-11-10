@@ -4,3 +4,35 @@
 *:after {
   box-sizing: border-box;
 }
+
+#top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: sans-serif;
+}
+
+#top-header a {
+  text-decoration: none;
+  color: black;
+}
+
+.siteName {
+  font-size: 36px;
+  font-weight: bold;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: rgb(5, 5, 53);
+  color: white;
+  list-style-type: none;
+  padding: 20px;
+}
+
+nav a  {
+  text-decoration: none;
+}
