@@ -36,3 +36,123 @@ nav ul {
 nav a  {
   text-decoration: none;
 }
+
+
+#welcome {
+  position: relative;
+}
+
+#welcome-info {
+  color:rgb(10, 117, 152);
+  background: rgba(243, 243, 243, 0.4);
+  padding: 15px;
+  position: absolute;
+  top: 20;
+  line-height: 10px;
+}
+
+#welcome-info-title {
+  font-weight: bold;
+}
+
+#delorean-img {
+  width: 100%;
+}
+
+button {
+  background-color: rgb(10, 117, 152);
+  padding: 5px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.back-upgrade {
+  background-color: rgb(10, 117, 152);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  
+}
+
+#upgrade-box {
+  display: flex;
+ 
+  flex-direction: column;
+}
+
+.upgrades-container {
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.box-for-upgrades {
+  
+  width: 300px;
+  margin: 10px;
+  
+}
+
+
+@media only screen and (min-width: 38rem) {
+
+  .box-for-upgrades {
+  
+    width: 150px;
+    margin: 10px;
+    
+  }
+
+  #welcome-info {
+    width: 250px;
+    font-size: 24px;
+  }
+
+  #delorean-img {
+    max-width: 700px;
+  }
+
+
+  h3 {
+    font-size: 30px;
+  }
+
+  nav ul {
+    font-size: 24px;
+  }
+  #secondary {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    background-image: url("/images/site/checkerboard.jpg");
+    overflow-x: hidden;
+    background-repeat: repeat;
+    background-size: 19em 19em ;
+  }
+
+  #wrapper {
+    /* width: 700px; */
+   
+    background-color: white;
+    border: 10px solid rgb(10, 117, 152);
+    padding: 10px;
+  }
+
+
+
+
+ 
+
+}
