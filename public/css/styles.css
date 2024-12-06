@@ -104,6 +104,10 @@ button {
 
 @media only screen and (min-width: 38rem) {
 
+  #wrapper {
+    min-width: 1000px;
+  }
+
   .box-for-upgrades {
   
     width: 150px;
