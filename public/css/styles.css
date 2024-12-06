@@ -33,8 +33,9 @@ nav ul {
   padding: 20px;
 }
 
-nav a  {
+ul a  {
   text-decoration: none;
+  color: white;
 }
 
 
@@ -53,6 +54,10 @@ nav a  {
 
 #welcome-info-title {
   font-weight: bold;
+}
+
+#own-button {
+  color: white;
 }
 
 #delorean-img {

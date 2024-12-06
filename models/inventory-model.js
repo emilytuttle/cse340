@@ -1,10 +1,12 @@
-const pool = require("../database/")
+const pool = require("../database/index.js")
 
 /* ***************************
  *  Get all classification data
  * ************************** */
 async function getClassifications(){
+  // console.log(await pool.query("SELECT * FROM public.classification ORDER BY classification_name"))
   return await pool.query("SELECT * FROM public.classification ORDER BY classification_name")
+  
 }
 
 /* ***************************
@@ -19,6 +21,7 @@ async function getInventoryByClassificationId(classification_id) {
         WHERE i.classification_id = $1`,
         [classification_id]
       )
+      console.log(data.rows)
       return data.rows
     } catch (error) {
       console.error("getclassificationsbyid error " + error)
