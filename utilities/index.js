@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+
 const Util = {}
 
 /* ************************
@@ -59,6 +60,37 @@ Util.buildClassificationGrid = async function(data){
     return grid
   }
 
+  /* **************************************
+* Build the product view HTML
+* ************************************ */
+
+Util.buildProductView = async function(data){
+  let productCard
+  function formatNumbers(num) {
+    const formatter = new Intl.NumberFormat('en-US');
+    const formattedNumber = formatter.format(num);
+    return formattedNumber
+  }
+  if(data.length > 0){
+    productCard += '<div id="prod-display">'
+    productCard += `
+      <div id="prod-details">
+        <h4>${data[0].inv_make} ${data[0].inv_model} Details:</h4>
+        <p>Price: $${formatNumbers(data[0].inv_price)}</p>
+        <p>Description: ${data[0].inv_description}</p>
+        <p>Color: ${data[0].inv_color}</p>
+        <p>Miles: ${formatNumbers(data[0].inv_miles)}</p>
+      </div>
+      <img src="${data[0].inv_image}" alt="Image of ${data[0].inv_make} ${data[0].inv_model}" />
+    </div>
+      
+    `
+    
+  } else { 
+    productCard += '<h4 class="notice">Sorry, no matching products could be found.</h4>'
+  }
+  return productCard
+}
 
 
 /* ****************************************
