@@ -102,6 +102,55 @@ button {
 }
 
 
+/* Classification Grid Start*/
+
+#inv-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+}
+
+.classification-vehicle {
+  list-style-type: none;
+  width: 280px;
+  height: 280px;
+  padding: 20px;
+  margin: 10px;
+  border: 2px solid gray;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  
+}
+
+/* Classification Grid End*/
+
+
+
+/* Product Card start */
+#prod-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+#prod-details {
+  width: 200px;
+}
+
+.prod-img {
+  max-width: 300px;
+}
+
+/* Product Card End */
+
+
 @media only screen and (min-width: 38rem) {
 
   #wrapper {
@@ -160,8 +209,27 @@ button {
   }
 
 
+  /* Classification Grid Start*/
+
+#inv-display {
+  /* display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: wrap; */
+  max-width: 1000px;
+}
+
+.classification-vehicle {
+  list-style-type: none;
+  
+}
+
+/* Classification Grid End*/
 
 
- 
+.prod-img {
+  max-width: 500px;
+}
 
 }

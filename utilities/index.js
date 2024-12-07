@@ -35,7 +35,7 @@ Util.buildClassificationGrid = async function(data){
     if(data[0]){
       grid = '<ul id="inv-display">'
       data.forEach(vehicle => { 
-        grid += '<li>'
+        grid += '<li class="classification-vehicle">'
         grid +=  '<a href="../../inv/detail/'+ vehicle.inv_id 
         + '" title="View ' + vehicle.inv_make + ' '+ vehicle.inv_model 
         + 'details"><img src="' + vehicle.inv_thumbnail 
@@ -74,6 +74,7 @@ Util.buildProductView = async function(data){
   if(data[0]){
     productCard += `
     <div id="prod-display">
+    <img src="${data[0].inv_image}" alt="Image of ${data[0].inv_make} ${data[0].inv_model}" class="prod-img"/>
       <div id="prod-details">
         <h4>${data[0].inv_make} ${data[0].inv_model} Details:</h4>
         <p>Price: $${formatNumbers(data[0].inv_price)}</p>
@@ -81,7 +82,7 @@ Util.buildProductView = async function(data){
         <p>Color: ${data[0].inv_color}</p>
         <p>Miles: ${formatNumbers(data[0].inv_miles)}</p>
       </div>
-      <img src="${data[0].inv_image}" alt="Image of ${data[0].inv_make} ${data[0].inv_model}" />
+      
     </div>
       
     `
