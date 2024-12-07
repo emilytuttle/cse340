@@ -32,7 +32,7 @@ Util.getNav = async function (req, res, next) {
 * ************************************ */
 Util.buildClassificationGrid = async function(data){
     let grid
-    if(data.length > 0){
+    if(data[0]){
       grid = '<ul id="inv-display">'
       data.forEach(vehicle => { 
         grid += '<li>'
@@ -65,15 +65,15 @@ Util.buildClassificationGrid = async function(data){
 * ************************************ */
 
 Util.buildProductView = async function(data){
-  let productCard
+  let productCard = ''
   function formatNumbers(num) {
     const formatter = new Intl.NumberFormat('en-US');
     const formattedNumber = formatter.format(num);
     return formattedNumber
   }
-  if(data.length > 0){
-    productCard += '<div id="prod-display">'
+  if(data[0]){
     productCard += `
+    <div id="prod-display">
       <div id="prod-details">
         <h4>${data[0].inv_make} ${data[0].inv_model} Details:</h4>
         <p>Price: $${formatNumbers(data[0].inv_price)}</p>
