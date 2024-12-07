@@ -9,7 +9,7 @@ const errCont = {}
 errCont.buildError=  function () {
 
     
-        res.render("./error", {
+        res.render("/errors/error", {
             title: "Error 500",
             nav
         })

@@ -3,6 +3,6 @@ const express = require("express")
 const router = new express.Router() 
 const errorController = require("../controllers/errorController")
 
-router.get("/err", errorController.buildError)
+router.get("/error", errorController.buildError)
 
 module.exports = router
