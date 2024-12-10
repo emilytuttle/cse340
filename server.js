@@ -14,7 +14,7 @@ const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
 const productRoute = require("./routes/productRoute")
-const errorRoute = require("./routes/errorRoute")
+
 
 
 /* ***********************
@@ -46,8 +46,6 @@ app.use("/inv", utilities.handleErrors(inventoryRoute))
 // app.use("/inv", productRoute)
 app.use("/inv", utilities.handleErrors(productRoute))
 
-// Error route
-app.use("/error", utilities.handleErrors(errorRoute))
 
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
