@@ -103,7 +103,7 @@ Util.buildLoginForm = async function(data){
   let loginForm = ''
   loginForm += `
   <div id="form-contain">
-   <form id="login-form" action="/account/login" method="post">
+   <form id="login-form">
       <label for="email">Email:</label><br>
       <input type="text" id="email" name="email" ><br>
       <label for="password">Password:</label><br>
@@ -130,14 +130,14 @@ Util.buildRegistrationForm = async function(data){
   registrationForm += `
   <div id="form-contain">
    <form id="register-form" action="/account/register" method="post">
-      <label for="account_fname">First Name:</label><br>
-      <input type="text" id="account_fname" name="account_fname" ><br>
-      <label for="account_lname">Last Name:</label><br>
-      <input type="text" id="account_lname" name="account_lname" ><br>
+      <label for="account_firstname">First Name:</label><br>
+      <input type="text" id="account_firstname" name="account_firstname" ><br>
+      <label for="account_lastname">Last Name:</label><br>
+      <input type="text" id="account_lastname" name="account_lastname" ><br>
       <label for="account_email">Email:</label><br>
       <input type="text" id="account_email" name="account_email" ><br>
-      <label for="password">Password:</label><br>
-      <input type="text" id="password" name="password"><br><br>
+      <label for="account_password">Password:</label><br>
+      <input type="text" id="account_password" name="account_password"><br><br>
       <p>Passwords must be a minimum of 12 characters and include 1 capital letter, 1 number, and 1 special character</p>
       <div class="center">
       <input type="submit" value="Register" class="login-submit">
