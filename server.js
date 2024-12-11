@@ -14,6 +14,32 @@ const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities")
 const productRoute = require("./routes/productRoute")
+const session = require("express-session")
+const pool = require('./database/')
+const accountRoute = require("./routes/accountRoute")
+
+
+
+/* ***********************
+ * Middleware
+ * ************************/
+app.use(session({
+  store: new (require('connect-pg-simple')(session))({
+    createTableIfMissing: true,
+    pool,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  name: 'sessionId',
+}))
+
+// Express Messages Middleware
+app.use(require('connect-flash')())
+app.use(function(req, res, next){
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
 
 
 
@@ -45,6 +71,10 @@ app.use("/inv", utilities.handleErrors(inventoryRoute))
 // Product routes
 // app.use("/inv", productRoute)
 app.use("/inv", utilities.handleErrors(productRoute))
+
+// Account routes
+app.use("/account", utilities.handleErrors(accountRoute))
+
 
 
 // File Not Found Route - must be last route in list

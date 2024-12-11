@@ -53,7 +53,7 @@ ul a  {
   background: rgba(243, 243, 243, 0.4);
   padding: 15px;
   position: absolute;
-  top: 20;
+  top: 20px;
   line-height: 10px;
 }
 
@@ -166,6 +166,58 @@ button {
 }
 
 /* Product Card End */
+
+/* login with account start */
+
+#login-form {
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(235, 235, 235);
+  border: 5px solid rgb(10, 117, 152);
+  border-radius: 20px;
+  padding: 20px;
+}
+#register-form {
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(235, 235, 235);
+  border: 5px solid rgb(10, 117, 152);
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.login-submit {
+  width: 150px;
+  font-size: 20px;
+  border-radius: 20px;
+  background-color: rgb(10, 117, 152);
+  color: white;
+}
+
+
+.login-submit:hover {
+  background-color: rgb(9, 95, 123);
+  cursor: pointer;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#form-contain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* login with account end */
 
 
 @media only screen and (min-width: 38rem) {
