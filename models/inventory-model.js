@@ -27,8 +27,20 @@ async function getInventoryByClassificationId(classification_id) {
     }
   }
 
+  /* *****************************
+*   Create new category
+* *************************** */
+async function createCategory(classification_name){
+  try {
+    const sql = "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *"
+    return await pool.query(sql, [classification_name])
+  } catch (error) {
+    return error.message
+  }
+}
 
 
 
 
-  module.exports = {getClassifications, getInventoryByClassificationId};
+
+  module.exports = {getClassifications, getInventoryByClassificationId, createCategory};

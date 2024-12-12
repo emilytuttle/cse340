@@ -1,6 +1,7 @@
 const utilities = require(".")
   const { body, validationResult } = require("express-validator")
   const validate = {}
+  const invModel = require("../models/inventory-model")
 
 //   const invModel = require("../models/inventory-model")
 //   const productModel = require("../models/product-model")
@@ -17,6 +18,7 @@ const utilities = require(".")
             .escape()
             .notEmpty()
             .isLength({ min: 1 })
+            .matches(/^[A-Za-z\s]+$/)
             .withMessage("Provide a category name with only letters.")
         ,
     ]
@@ -26,18 +28,20 @@ const utilities = require(".")
  * Check data and return errors or continue to classification
  * ***************************** */
 validate.checkClassificationData = async (req, res, next) => {
-    const classificationGrid = await utilities.buildClassificationGrid()
+    const data = await invModel.getClassifications()
+    const grid = await utilities.buildClassificationGrid(data)
     const { classification_name} = req.body
     let errors = []
     errors = validationResult(req)
     if (!errors.isEmpty()) {
       let nav = await utilities.getNav()
-      res.render("inventory/classification", {
+      res.render("./inventory/classification", {
         errors,
         title: "Classification",
         nav,
         classification_name,
-        classificationGrid
+        grid,
+        errors: null,
       })
       return
     }
