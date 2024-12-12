@@ -127,25 +127,25 @@ Util.buildLoginForm = async function(data){
 Util.buildRegistrationForm = async function(data){
 
   let registrationForm = ''
-  registrationForm += `
-  <div id="form-contain">
-   <form id="register-form" action="/account/register" method="post">
-      <label for="account_firstname">First Name:</label><br>
-      <input type="text" id="account_firstname" name="account_firstname" ><br>
-      <label for="account_lastname">Last Name:</label><br>
-      <input type="text" id="account_lastname" name="account_lastname" ><br>
-      <label for="account_email">Email:</label><br>
-      <input type="text" id="account_email" name="account_email" ><br>
-      <label for="account_password">Password:</label><br>
-      <input type="text" id="account_password" name="account_password"><br><br>
-      <p>Passwords must be a minimum of 12 characters and include 1 capital letter, 1 number, and 1 special character</p>
-      <div class="center">
-      <input type="submit" value="Register" class="login-submit">
-      </div>
-    </form>
-  </div>
+  // registrationForm += `
+  // <div id="form-contain">
+  //  <form id="register-form" action="/account/register" method="post">
+  //     <label for="account_firstname">First Name:</label><br>
+  //     <input type="text" id="account_firstname" name="account_firstname" ><br>
+  //     <label for="account_lastname">Last Name:</label><br>
+  //     <input type="text" id="account_lastname" name="account_lastname" ><br>
+  //     <label for="account_email">Email:</label><br>
+  //     <input type="text" id="account_email" name="account_email" ><br>
+  //     <label for="account_password">Password:</label><br>
+  //     <input type="text" id="account_password" name="account_password"><br><br>
+  //     <p>Passwords must be a minimum of 12 characters and include 1 capital letter, 1 number, and 1 special character</p>
+  //     <div class="center">
+  //     <input type="submit" value="Register" class="login-submit">
+  //     </div>
+  //   </form>
+  // </div>
   
-  `
+  //`
   return registrationForm
 
 }
