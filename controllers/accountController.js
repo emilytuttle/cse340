@@ -51,7 +51,8 @@ async function registerAccount(req, res) {
       res.status(201).render("account/login", {
         title: "Login",
         nav,
-        loginForm
+        loginForm, 
+        errors: null,
       })
     } else {
       req.flash("notice", "Sorry, the registration failed.")

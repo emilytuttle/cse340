@@ -28,4 +28,46 @@ invCont.buildByClassificationId = async function (req, res, next) {
   
 }
 
+/* ***************************
+ *  Build management view
+ * ************************** */
+
+invCont.buildManager = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/management", {
+    title: "Management",
+    nav,
+    errors: null,
+
+  })
+}
+
+/* ***************************
+ *  Build classification management view
+ * ************************** */
+
+invCont.buildClassificationManager = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("./inventory/categoryManagement", {
+    title: "New Classification",
+    nav,
+    errors: null,
+  })
+}
+
+/* ***************************
+ *  Build Product management view
+ * ************************** */
+
+invCont.buildProductManager = async function (req, res, next) {
+  let nav = await utilities.getNav()
+  let productManagement = await utilities.buildProductManagement()
+  res.render("./inventory/productManagement", {
+    title: "New Product",
+    nav,
+    productManagement,
+    errors: null,
+  })
+}
+
 module.exports = invCont

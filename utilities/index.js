@@ -150,6 +150,30 @@ Util.buildRegistrationForm = async function(data){
 
 }
 
+  /* **************************************
+* Build the Product Management form item HTML
+* ************************************ */
+Util.buildProductManagement = async function(classification_id=null){
+  let data = await invModel.getClassifications()
+  let productManagement =
+    '<select name="classification_id" id="classificationList" required>'
+    productManagement += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    productManagement += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      productManagement += " selected "
+    }
+    productManagement += ">" + row.classification_name + "</option>"
+  })
+  productManagement += "</select>"
+  return productManagement
+
+}
+
+
 
 /* ****************************************
  * Middleware For Handling Errors

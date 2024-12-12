@@ -190,6 +190,17 @@ button {
   padding: 20px;
 }
 
+#category-form {
+  max-width: 750px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgb(235, 235, 235);
+  border: 5px solid rgb(10, 117, 152);
+  border-radius: 20px;
+  padding: 20px;
+}
+
 .login-submit {
   width: 150px;
   font-size: 20px;
@@ -218,6 +229,13 @@ button {
 }
 
 /* login with account end */
+
+#main-manager {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
 
 @media only screen and (min-width: 38rem) {
