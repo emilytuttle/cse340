@@ -12,9 +12,14 @@ async function buildLogin(req, res, next) {
     res.render("account/login", {
       title: "Login",
       nav,
-      loginForm
+      loginForm,
+      errors: null,
     })
   }
+
+  /* ****************************************
+*  Deliver registration view
+* *************************************** */
 
   async function buildRegistration(req, res, next) {
 
@@ -23,7 +28,8 @@ async function buildLogin(req, res, next) {
     res.render("account/register", {
       title: "Registration",
       nav,
-      registrationForm
+      registrationForm,
+      errors: null,
     })
   }
 
