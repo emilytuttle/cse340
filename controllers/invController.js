@@ -104,4 +104,37 @@ invCont.createCategory = async function (req, res) {
   }
 }
 
+  /* ****************************************
+*  Process Product Creation
+* *************************************** */
+invCont.createProduct = async function (req, res) {
+  const data = await invModel.getClassifications()
+  const grid = await utilities.buildClassificationGrid(data)
+  let nav = await utilities.getNav()
+  const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body
+
+  const regResult = await invModel.createProduct(
+    inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color
+  )
+
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, you created ${inv_make} ${inv_model}.`
+    )
+    res.status(201).render("./inventory/classification", {
+      title: "Classification",
+      nav,
+      grid,
+      errors: null,
+    })
+  } else {
+    req.flash("notice", "Sorry, the registration failed.")
+    res.status(501).render("./inventory/categoryManagement", {
+      title: "New Category",
+      nav,
+    })
+  }
+}
+
 module.exports = invCont
