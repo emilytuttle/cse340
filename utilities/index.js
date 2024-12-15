@@ -156,7 +156,7 @@ Util.buildRegistrationForm = async function(data){
 Util.buildProductManagement = async function(classification_id=null){
   let data = await invModel.getClassifications()
   let productManagement =
-    '<select name="classification_id" id="classificationList" required>'
+    '<select name="classification_id" id="classification_id" required>'
     productManagement += "<option value=''>Choose a Classification</option>"
   data.rows.forEach((row) => {
     productManagement += '<option value="' + row.classification_id + '"'

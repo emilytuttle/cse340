@@ -17,23 +17,23 @@
   <div id="form-contain">
     <form id="category-form" action="/inv/productManagement" method="post">
         <label for="inv_make">Make:</label><br>
-        <input type="text" name="inv_make" id="invMake" required value="<%= locals.inv_make %>"><br>
+        <input type="text" name="inv_make" id="inv_make" required value="<%= locals.inv_make %>"><br>
         <label for="inv_model">Model:</label><br>
-        <input type="text" name="inv_model" id="invModel" required value="<%= locals.inv_model %>"><br>
+        <input type="text" name="inv_model" id="inv_model" required value="<%= locals.inv_model %>"><br>
         <label for="inv_year">Year:</label><br>
-        <input type="text" name="inv_year" id="invYear" required pattern="[0-9]+" value="<%= locals.inv_year %>"><br>
+        <input type="text" name="inv_year" id="inv_year" required pattern="[0-9]+" value="<%= locals.inv_year %>"><br>
         <label for="inv_description">Description:</label><br>
-        <input type="textarea" name="inv_description" id="invDescription" required value="<%= locals.inv_description %>"><br>
+        <input type="textarea" name="inv_description" id="inv_description" required value="<%= locals.inv_description %>"><br>
         <label for="inv_image">Image Path:</label><br>
-        <input type="text" name="inv_image" id="invImage" required value="/images/vehicles/no-image.png"><br>
+        <input type="text" name="inv_image" id="inv_image" required value="/images/vehicles/no-image.png"><br>
         <label for="inv_thumbnail">Thumbnail Path:</label><br>
-        <input type="text" name="inv_thumbnail" id="invThumbnail" required value="/images/vehicles/no-image-tn.png"><br>
+        <input type="text" name="inv_thumbnail" id="inv_thumbnail" required value="/images/vehicles/no-image-tn.png"><br>
         <label for="inv_price">Price:</label><br>
-        <input type="text" name="inv_price" id="invPrice" required pattern="[0-9]+" value="<%= locals.inv_price %>"><br>
+        <input type="text" name="inv_price" id="inv_price" required pattern="[0-9]+" value="<%= locals.inv_price %>"><br>
         <label for="inv_miles">Miles:</label><br>
-        <input type="text" name="inv_miles" id="invMiles" required pattern="[0-9]+" value="<%= locals.inv_miles %>"><br>
+        <input type="text" name="inv_miles" id="inv_miles" required pattern="[0-9]+" value="<%= locals.inv_miles %>"><br>
         <label for="inv_color">Color:</label><br>
-        <input type="text" name="inv_color" id="invColor" required value="<%= locals.inv_color %>"><br>
+        <input type="text" name="inv_color" id="inv_colo" required value="<%= locals.inv_color %>"><br>
         <label for="classification_id">Classification:</label><br>
         <%- productManagement %> <br>
        <div class="center">
