@@ -75,66 +75,66 @@ invCont.buildProductManager = async function (req, res, next) {
 *  Process Category Creation
 * *************************************** */
 invCont.createCategory = async function (req, res) {
-  const data = await invModel.getClassifications()
-  const grid = await utilities.buildClassificationGrid(data)
-  let nav = await utilities.getNav()
+  
   const { classification_name } = req.body
 
   const regResult = await invModel.createCategory(
     classification_name
   )
 
-  if (regResult) {
-    req.flash(
-      "notice",
-      `Congratulations, you created ${classification_name}.`
-    )
-    res.status(201).render("./inventory/classification", {
-      title: "Classification",
-      nav,
-      grid,
-      errors: null,
-    })
-  } else {
-    req.flash("notice", "Sorry, the registration failed.")
-    res.status(501).render("./inventory/categoryManagement", {
-      title: "New Category",
-      nav,
-    })
-  }
-}
-
-  /* ****************************************
-*  Process Product Creation
-* *************************************** */
-invCont.createProduct = async function (req, res) {
-  const data = await invModel.getClassifications()
-  const grid = await utilities.buildClassificationGrid(data)
+  // const data = await invModel.getClassifications()
+  // const grid = await utilities.buildClassificationGrid(data)
   let nav = await utilities.getNav()
-  const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color } = req.body
-
-  const regResult = await invModel.createProduct(
-    inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color
-  )
-
   if (regResult) {
     req.flash(
       "notice",
-      `Congratulations, you created ${inv_make} ${inv_model}.`
+      `Congratulations, you created ${classification_name}. Add another classification`
     )
-    res.status(201).render("./inventory/classification", {
+    res.status(201).render("inventory/categoryManagement", {
       title: "Classification",
       nav,
-      grid,
       errors: null,
     })
   } else {
     req.flash("notice", "Sorry, the registration failed.")
-    res.status(501).render("./inventory/categoryManagement", {
+    res.status(501).render("inventory/categoryManagement", {
       title: "New Category",
       nav,
     })
   }
 }
+// the following is done in product controller
+//   /* ****************************************
+// *  Process Product Creation
+// * *************************************** */
+// invCont.createProduct = async function (req, res) {
+  
+  
+//   const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
+
+//   const regResult = await invModel.createProduct(
+//     inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id
+//   )
+
+//   let nav = await utilities.getNav()
+
+//   if (regResult) {
+//     req.flash(
+//       "notice",
+//       `Congratulations, you created ${inv_make} ${inv_model}. Would you like to make another one?`
+//     )
+//     res.status(201).render("inventory/productManagement", {
+//       title: "New Product",
+//       nav,
+//       errors: null,
+//     })
+//   } else {
+//     req.flash("notice", "Sorry, the product creation failed.")
+//     res.status(501).render("inventory/productManagement", {
+//       title: "New Product",
+//       nav,
+//     })
+//   }
+// }
 
 module.exports = invCont

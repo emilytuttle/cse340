@@ -245,6 +245,10 @@ input:required:invalid, input:focus:invalid {
   border: 3px solid green;
  }
 
+ .notice {
+  color: red;
+ }
+
 @media only screen and (min-width: 38rem) {
 
   #wrapper {

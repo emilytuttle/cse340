@@ -1,6 +1,7 @@
 const prodModel = require("../models/product-model")
 const utilities = require("../utilities/")
 const invModel = require("../models/inventory-model")
+const invCont = require("../controllers/invController")
 
 const prodCont = {}
 
@@ -36,30 +37,33 @@ prodCont.buildByProdId = async function (req, res, next) {
 *  Process Product Creation
 * *************************************** */
 prodCont.createProduct = async function (req, res) {
-    const data = await invModel.getClassifications()
-    const grid = await utilities.buildClassificationGrid(data)
-    let nav = await utilities.getNav()
+    
     const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
   
     const regResult = await prodModel.createProduct(
       inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id
     )
+
+    // const data = await invCont.getInventoryByClassificationId(classification_id)
+    // const grid = await utilities.buildClassificationGrid(data)
+    let nav = await utilities.getNav()
+    let productManagement = await utilities.buildProductManagement()
   
     if (regResult) {
       req.flash(
         "notice",
-        `Congratulations, you created ${inv_make} ${inv_model}.`
+        `Congratulations, you created ${inv_make} ${inv_model}. Create another vehicle or go view your new product in its classification`
       )
-      res.status(201).render("./inventory/classification", {
-        title: "Classification",
+      res.status(201).render("./inventory/productManagement", {
+        title: "New Product",
         nav,
-        grid,
+        productManagement,
         errors: null,
       })
     } else {
       req.flash("notice", "Sorry, the registration failed.")
-      res.status(501).render("./inventory/categoryManagement", {
-        title: "New Category",
+      res.status(501).render("./inventory/productManagement", {
+        title: "New Product",
         nav,
       })
     }
