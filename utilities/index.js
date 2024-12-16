@@ -175,6 +175,29 @@ Util.buildProductManagement = async function(classification_id=null){
 
 }
 
+  /* **************************************
+* Build the classification List
+* ************************************ */
+Util.buildClassificationList = async function(classification_id=null){
+  let data = await invModel.getClassifications()
+  let productManagement =
+    '<select name="classification_id" id="classificationList" required>'
+    productManagement += "<option value=''>Choose a Classification</option>"
+  data.rows.forEach((row) => {
+    productManagement += '<option value="' + row.classification_id + '"'
+    if (
+      classification_id != null &&
+      row.classification_id == classification_id
+    ) {
+      productManagement += " selected "
+    }
+    productManagement += ">" + row.classification_name + "</option>"
+  })
+  productManagement += "</select>"
+  return productManagement
+
+}
+
 
 
 /* ****************************************
@@ -205,6 +228,18 @@ Util.checkJWTToken = (req, res, next) => {
     })
   } else {
    next()
+  }
+ }
+
+ /* ****************************************
+ *  Check Login
+ * ************************************ */
+ Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next()
+  } else {
+    req.flash("notice", "Please log in.")
+    return res.redirect("/account/login")
   }
  }
 

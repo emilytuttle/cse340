@@ -5,7 +5,8 @@ const accountController = require("../controllers/accountController")
 const utilities = require("../utilities")
 const regValidate = require('../utilities/account-validation')
 
-router.get("/", utilities.handleErrors(accountController.buildLoggedIn))
+// router.get("/", utilities.handleErrors(accountController.buildLoggedIn))
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildLoggedIn))
 router.get("/login", utilities.handleErrors(accountController.buildLogin))
 router.get("/register", utilities.handleErrors(accountController.buildRegistration))
 
@@ -22,7 +23,7 @@ router.post(
   // Process the login request
 router.post(
   "/login",
-  // regValidate.loginRules(),
+  regValidate.loginRules(),
   regValidate.checkLoginData,
   utilities.handleErrors(accountController.accountLogin)
 )

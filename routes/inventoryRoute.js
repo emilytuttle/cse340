@@ -12,6 +12,11 @@ router.get("/", utilities.handleErrors(invController.buildManager))
 router.get("/categoryManagement", utilities.handleErrors(invController.buildClassificationManager))
 router.get("/productManagement", utilities.handleErrors(invController.buildProductManager))
 
+router.get("/edit/#", utilities.handleErrors(invController.editInventory))
+
+
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
+
 router.post(
     "/categoryManagement",
     regValidate.classificationRules(),
