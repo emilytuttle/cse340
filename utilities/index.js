@@ -1,4 +1,6 @@
 const invModel = require("../models/inventory-model")
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 const Util = {}
 
@@ -103,11 +105,11 @@ Util.buildLoginForm = async function(data){
   let loginForm = ''
   loginForm += `
   <div id="form-contain">
-   <form id="login-form">
-      <label for="email">Email:</label><br>
-      <input type="text" id="email" name="email" ><br>
-      <label for="password">Password:</label><br>
-      <input type="text" id="password" name="password"><br><br>
+   <form id="login-form" action="/account/login" method="post">
+      <label for="account_email">Email:</label><br>
+      <input type="text" id="account_email" name="account_email" ><br>
+      <label for="account_password">Password:</label><br>
+      <input type="password" id="account_password" name="account_password"><br><br>
       <div class="center">
       <input type="submit" value="Submit" class="login-submit">
       <p>No account? <a href="/account/register">Sign Up</a></p>
@@ -181,5 +183,29 @@ Util.buildProductManagement = async function(classification_id=null){
  * General Error Handling
  **************************************** */
 Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
+
+/* ****************************************
+* Middleware to check token validity
+**************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+   jwt.verify(
+    req.cookies.jwt,
+    process.env.ACCESS_TOKEN_SECRET,
+    function (err, accountData) {
+     if (err) {
+      req.flash("Please log in")
+      res.clearCookie("jwt")
+      return res.redirect("/account/login")
+     }
+     res.locals.accountData = accountData
+     res.locals.loggedin = 1
+     next()
+    })
+  } else {
+   next()
+  }
+ }
 
 module.exports = Util
