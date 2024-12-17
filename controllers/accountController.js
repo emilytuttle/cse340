@@ -262,7 +262,8 @@ async function accountLogin(req, res) {
 async function accountLogout(req, res) {
   const loginForm = await utilities.buildLoginForm()
     let nav = await utilities.getNav()
-    res.render("account/login", {
+    return res.redirect("/account/")
+    res.redirect("account/login", {
       title: "Login",
       nav,
       loginForm,
