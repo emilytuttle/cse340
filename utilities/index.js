@@ -198,6 +198,14 @@ Util.buildClassificationList = async function(classification_id=null){
 
 }
 
+ /* **************************************
+* Build the classification List
+* ************************************ */
+Util.processNameUpdate = async function(classification_id=null){
+
+
+}
+
 
 
 /* ****************************************
@@ -227,9 +235,44 @@ Util.checkJWTToken = (req, res, next) => {
      next()
     })
   } else {
+    
    next()
   }
  }
+
+ /* ****************************************
+* Middleware to check account type
+**************************************** */
+Util.checkAccountType = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        res.locals.accountData = accountData
+       
+       res.locals.loggedin = 1
+       console.log("account data:" + res.locals.accountData.account_type)
+        console.log("HERE WE GO AGAIN")
+        console.log(res.locals.accountData.account_type)
+        if (res.locals.accountData.account_type == "Employee") {
+          next()
+        } else if (res.locals.accountData.account_type == "admin") {
+          next()
+        } else {
+          req.flash("notice", "Access Denied: Insufficient account privileges");
+          return res.redirect("/account/login");
+        }
+
+        // Proceed to the next middleware or route handler
+        next();
+      }
+    );
+  } else {
+    // If no JWT cookie is found, allow access to public routes or next middleware
+    next();
+  }
+};
 
  /* ****************************************
  *  Check Login
@@ -242,5 +285,29 @@ Util.checkJWTToken = (req, res, next) => {
     return res.redirect("/account/login")
   }
  }
+
+ /* ****************************************
+ *  LOGOUT
+ * ************************************ */
+Util.logout = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err) {
+        if (err) {
+          req.flash("Please log in");
+          res.clearCookie("jwt");
+          return res.redirect("/account/login");
+        }
+        res.clearCookie("jwt");
+        console.log("WE GOT TO HERE AND CLEARED IT")
+        next();
+      }
+    );
+  } else {
+    next(); // If there's no JWT, just move on to the next middleware
+  }
+};
 
 module.exports = Util

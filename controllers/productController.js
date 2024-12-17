@@ -68,6 +68,56 @@ prodCont.createProduct = async function (req, res) {
       })
     }
   }
+
+
+
+  /* ****************************************
+*  Process Product Update
+* *************************************** */
+prodCont.updateInventory = async function (req, res) {
+  
+    
+  const { inv_id, inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id } = req.body
+
+  const decodedImagePath = inv_image.replace(/&#x2F;/g, '/');
+    const decodedThumbPath = inv_thumbnail.replace(/&#x2F;/g, '/');
+  const updateResult = await prodModel.updateInventory(
+    inv_id, inv_make, inv_model, inv_year, inv_description, decodedImagePath, decodedThumbPath, inv_price, inv_miles, inv_color, classification_id
+  )
+
+  // const data = await invCont.getInventoryByClassificationId(classification_id)
+  // const grid = await utilities.buildClassificationGrid(data)
+  let nav = await utilities.getNav()
+  let productManagement = await utilities.buildProductManagement()
+
+  if (updateResult) {
+    const itemName = updateResult.inv_make + " " + updateResult.inv_model
+    req.flash("notice", `The ${itemName} was successfully updated.`)
+    res.redirect("/inv/")
+  } else {
+    const classificationSelect = await utilities.buildClassificationList(classification_id)
+    const itemName = `${inv_make} ${inv_model}`
+    req.flash("notice", "Sorry, the insert failed.")
+    res.status(501).render("inventory/editInventory", {
+    title: "Edit " + itemName,
+    nav,
+    productManagement,
+    classificationSelect: classificationSelect,
+    errors: null,
+    inv_id,
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id
+    })
+  }
+}
   
 module.exports = prodCont;
 

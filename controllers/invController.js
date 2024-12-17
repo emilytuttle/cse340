@@ -1,11 +1,14 @@
 const invModel = require("../models/inventory-model")
 const utilities = require("../utilities/")
+const prodModel = require("../models/product-model")
 
 const invCont = {}
 
 /* ***************************
  *  Build inventory by classification view
  * ************************** */
+// console.log("RES DATA BELOW HEREEEEEEE")
+//     console.log(res.locals.accountData)
 invCont.buildByClassificationId = async function (req, res, next) {
   const classification_id = req.params.classificationId
   const data = await invModel.getInventoryByClassificationId(classification_id)
@@ -107,6 +110,35 @@ invCont.createCategory = async function (req, res) {
       nav,
     })
   }
+}
+
+/* ***************************
+ *  Build edit inventory view
+ * ************************** */
+invCont.editInventoryView = async function (req, res, next) {
+  const inv_id = parseInt(req.params.inv_id)
+  let nav = await utilities.getNav()
+  const itemData = await prodModel.getProductByInvId(inv_id)
+  
+  const productManagement = await utilities.buildClassificationList(itemData.classification_id)
+  const itemName = `${itemData[0].inv_make} ${itemData[0].inv_model}`
+  res.render("./inventory/editInventory", {
+    title: "Edit " + itemName,
+    nav,
+    productManagement: productManagement,
+    errors: null,
+    inv_id: itemData[0].inv_id,
+    inv_make: itemData[0].inv_make,
+    inv_model: itemData[0].inv_model,
+    inv_year: itemData[0].inv_year,
+    inv_description: itemData[0].inv_description,
+    inv_image: itemData[0].inv_image,
+    inv_thumbnail: itemData[0].inv_thumbnail,
+    inv_price: itemData[0].inv_price,
+    inv_miles: itemData[0].inv_miles,
+    inv_color: itemData[0].inv_color,
+    classification_id: itemData[0].classification_id
+  })
 }
 // the following is done in product controller
 //   /* ****************************************

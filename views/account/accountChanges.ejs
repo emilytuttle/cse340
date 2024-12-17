@@ -1,0 +1,44 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<%# messages() %>
+
+<h2>Account Changes Go here</h2>
+<div id="form-contain">
+  <form id="register-form" action="/account/updateNames" method="post">
+     <label for="account_firstname">First Name:</label><br>
+     <input type="text" id="account_firstname" name="account_firstname" require value="<%= locals.accountData.account_firstname %>"><br>
+     <label for="account_lastname">Last Name:</label><br>
+     <input type="text" id="account_lastname" name="account_lastname" require value="<%= locals.accountData.account_lastname %>"><br>
+     <label for="account_email">Email:</label><br>
+     <input type="email" id="account_email" name="account_email" require value="<%= locals.accountData.account_email %>"><br>
+     <div class="center">
+     <input type="submit" value="Save Changes" class="login-submit">
+     <input type="hidden" name="account_id"
+      
+     <% if(locals.accountData) { %> value="<%= locals.accountData.account_id %>"
+     <% } %>>
+     </div>
+   </form>
+ </div>
+ <div id="form-contain">
+  <form id="register-form" action="/account/updatePassword" method="post">
+     <label for="account_password">NewPassword:</label><br>
+     <input type="password" id="account_password" name="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!#$%&@.*\s).{12,}$"><br><br>
+     <p>Passwords must be a minimum of 12 characters and include 1 capital letter, 1 number, and 1 special character</p>
+     <div class="center">
+     <input type="submit" value="Save Changes" class="login-submit">
+     <input type="hidden" name="account_id"
+      
+     <% if(locals.accountData) { %> value="<%= locals.accountData.account_id %>"
+     <% } %>>
+     </div>
+   </form>
+ </div>
+
+
+ <!-- <% if (locals.accountData) { %> value="<%= locals.account_id %>"
+        <% } %>> -->

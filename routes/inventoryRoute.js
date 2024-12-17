@@ -4,15 +4,34 @@ const router = new express.Router()
 const invController = require("../controllers/invController")
 const utilities = require("../utilities")
 const regValidate = require('../utilities/inv-validation')
+const prodValidate = require('../utilities/product-validation')
+const prodController = require('../controllers/productController')
 
 // Route to build inventory by classification view
 router.get("/type/:classificationId", utilities.handleErrors(invController.buildByClassificationId));
 
-router.get("/", utilities.handleErrors(invController.buildManager))
-router.get("/categoryManagement", utilities.handleErrors(invController.buildClassificationManager))
-router.get("/productManagement", utilities.handleErrors(invController.buildProductManager))
+router.get("/",
+  utilities.checkLogin,
+  utilities.checkAccountType, 
+  utilities.handleErrors(invController.buildManager))
 
-router.get("/edit/#", utilities.handleErrors(invController.editInventory))
+router.get("/categoryManagement", 
+  utilities.checkLogin,
+  utilities.checkAccountType, 
+  utilities.handleErrors(invController.buildClassificationManager))
+
+
+router.get("/productManagement", 
+  utilities.checkLogin,
+  utilities.checkAccountType, 
+  utilities.handleErrors(invController.buildProductManager))
+
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
+
+router.post("/update/", 
+  prodValidate.productRules(),
+  prodValidate.checkUpdateData,
+  utilities.handleErrors(prodController.updateInventory))
 
 
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))

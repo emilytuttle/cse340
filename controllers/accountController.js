@@ -10,13 +10,26 @@ require("dotenv").config()
 *  Deliver login view
 * *************************************** */
 async function buildLogin(req, res, next) {
-
     const loginForm = await utilities.buildLoginForm()
     let nav = await utilities.getNav()
     res.render("account/login", {
       title: "Login",
       nav,
       loginForm,
+      errors: null,
+    }) 
+  }
+
+/* ****************************************
+*  Deliver account details view
+* *************************************** */
+async function buildAccountDetails(req, res, next) {
+  
+    
+    let nav = await utilities.getNav()
+    res.render("account/accountDetails", {
+      title: "Account Details",
+      nav,
       errors: null,
     })
   }
@@ -90,13 +103,65 @@ async function registerAccount(req, res) {
 
   async function buildLoggedIn(req, res) {
     let nav = await utilities.getNav()
+    
     res.status(201).render("account/loggedIn", {
-        title: "Logged In",
+        title: "Your Account",
         nav,
         errors: null,
       })
   }
 
+    /* ****************************************
+*  Process Names Changes
+* *************************************** */
+async function updateNames(req, res) {
+  let nav = await utilities.getNav()
+  const registrationForm = await utilities.buildRegistrationForm()
+  const loginForm = await utilities.buildLoginForm()
+  const { account_firstname, account_lastname, account_email, account_id} = req.body
+
+  const regResult = await accountModel.updateAccountNames(
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_id
+  )
+
+  if (regResult) {
+    let accountData = {
+      'account_firstname': account_firstname,
+      'account_lastname': account_lastname,
+      'account_email': account_email,
+      'account_id': account_id
+
+    }
+    res.session.accountData = accountData
+    req.flash(
+      "notice",
+      `Congratulations ${account_firstname}, you\'ve updated your information! Logout and login again with your new information to see your changes!`
+    )
+    res.status(201).render("account/accountChanges", {
+      title: "Update Account",
+      nav, 
+      errors: null,
+    })
+  } else {
+    req.flash("notice", "Sorry, the account informatation update failed.")
+    res.status(501).render("account/accountChanges", {
+      title: "Update",
+      nav,
+    })
+  }
+}
+
+async function buildLoggedIn(req, res) {
+  let nav = await utilities.getNav()
+  res.status(201).render("account/loggedIn", {
+      title: "Your Account",
+      nav,
+      errors: null,
+    })
+}
 
   /* ****************************************
  *  Process login request
@@ -142,5 +207,30 @@ async function accountLogin(req, res) {
     throw new Error('Access Forbidden')
   }
 }
+
+
+// Process to logout
+async function accountLogout(req, res) {
+  const loginForm = await utilities.buildLoginForm()
+    let nav = await utilities.getNav()
+    res.render("account/login", {
+      title: "Login",
+      nav,
+      loginForm,
+      errors: null,
+    })
+}
+
+
+//Name portion of profile update
+async function namesUpdate(req, res) {
+  let nav = await utilities.getNav()
+  res.status(201).render("account/accountChanges", {
+    title: "Update Account",
+    nav,
+    errors: null,
+  })
+}
+
   
-  module.exports = { buildLogin, buildRegistration, registerAccount, buildLoggedIn, accountLogin }
+  module.exports = { buildLogin, buildRegistration, registerAccount, buildLoggedIn, accountLogin, buildAccountDetails, accountLogout, namesUpdate, updateNames }

@@ -103,4 +103,28 @@ const invModel = require("../models/inventory-model")
         next()
       }
 
+         /* ******************************
+ * Check data and return errors or continue to classification
+ * ***************************** */
+    validate.checkUpdateData = async (req, res, next) => {
+      const data = await invModel.getClassifications()
+      const grid = await utilities.buildClassificationGrid(data)
+      const { inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, inv_id} = req.body
+      let errors = []
+      errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("./inventory/editInventory", {
+          errors,
+          title: "Edit Product",
+          nav,
+          inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, inv_id,
+          grid,
+          errors: null,
+        })
+        return
+      }
+      next()
+    }
+
 module.exports = validate
