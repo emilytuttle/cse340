@@ -11,6 +11,7 @@ Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications()
   let list = "<ul>"
   list += '<li><a href="/" title="Home page">Home</a></li>'
+  list += '<li><a href="/inv/reviews" title="Reviews">Reviews</a></li>'
   data.rows.forEach((row) => {
     list += "<li>"
     list +=
@@ -197,6 +198,32 @@ Util.buildClassificationList = async function(classification_id=null){
   return productManagement
 
 }
+
+  /* **************************************
+* Build the Review List
+* ************************************ */
+Util.buildReviewList = async function(){
+  let data = await invModel.getReviews()
+  let reviewView = `<div id="reviews-container">`
+    
+  for (let i=0; i< data.length; i++)  {
+
+    reviewView += 
+    `
+    <div id="review-block">
+    <h4>Review by: ${data[i].review_firstname} ${data[i].review_lastname}</h4>
+    <h4>Rating: ${data[i].review_stars}/5</h4>
+    <p>Review: ${data[i].review_content}</p>
+    </div>
+    
+    `
+  }
+  reviewView += "</div>"
+
+  
+  return reviewView
+}
+
 
  /* **************************************
 * Build the classification List

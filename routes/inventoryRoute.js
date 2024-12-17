@@ -28,11 +28,19 @@ router.get("/productManagement",
 
 router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
 
+router.get("/reviews", utilities.handleErrors(invController.buildReviews))
+
 router.post("/update/", 
   prodValidate.productRules(),
   prodValidate.checkUpdateData,
   utilities.handleErrors(prodController.updateInventory))
 
+
+  router.post("/leaveReview",
+    // regValidate.reviewRules(),
+    // regValidate.checkReviewData,
+    utilities.handleErrors(invController.postReview)
+  )
 
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 

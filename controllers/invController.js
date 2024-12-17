@@ -51,6 +51,8 @@ invCont.buildManager = async function (req, res, next) {
   })
 }
 
+
+
 /* ***************************
  *  Build classification management view
  * ************************** */
@@ -173,6 +175,65 @@ invCont.editInventoryView = async function (req, res, next) {
 //     })
 //   }
 // }
+
+
+/* ***************************
+ *  Build review view
+ * ************************** */
+
+invCont.buildReviews = async function (req, res, next) {
+  let nav = await utilities.getNav()
+
+  const reviewList = await utilities.buildReviewList()
+
+
+  res.render("./inventory/reviews", {
+    title: "Reviews",
+    nav,
+    reviewList,
+    errors: null,
+
+  })
+}
+
+  /* ****************************************
+*  Process Review Creation
+* *************************************** */
+invCont.postReview = async function (req, res) {
+  console.log("REALLY CURIOUS ARE WE MAKING IT HERE TO THE PROST REVIEW IN INVCONTOLLER")
+  
+  const { review_firstname, review_lastname, review_email, review_content, review_stars } = req.body
+
+  const regResult = await invModel.createReview(
+    review_firstname, review_lastname, review_email, review_content, review_stars
+  )
+
+  let nav = await utilities.getNav()
+  const reviewList = await utilities.buildReviewList()
+
+  // const data = await invModel.getClassifications()
+  // const grid = await utilities.buildClassificationGrid(data)
+  
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, you published a review!`
+    )
+    res.status(201).render("./inventory/reviews", {
+      title: "Reviews",
+      nav,
+      reviewList,
+      errors: null,
+    })
+  } else {
+    req.flash("notice", "Sorry, the review publishing failed, try again.")
+    res.status(501).render("inventory/reviews", {
+      title: "Reviews",
+      reviewList,
+      nav,
+    })
+  }
+}
 
 /* ***************************
  *  Return Inventory by Classification As JSON

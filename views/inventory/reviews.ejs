@@ -1,0 +1,38 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<%# messages() %>
+
+<div>
+    <h3>Write a review:</h3>
+<div id="form-contain">
+    
+    <form id="category-form" action="/inv/leaveReview" method="post">
+        <label for="review_firstname">First Name:</label><br>
+        <input type="text" name="review_firstname" id="review_firstname" required value="<%= locals.review_firstname %>"><br>
+
+        <label for="review_lastname">Last Name:</label><br>
+        <input type="text" name="review_lastname" id="review_lastname" required value="<%= locals.review_lastname %>"><br>
+
+        <label for="review_email">Email:</label><br>
+        <input type="email" name="review_email" id="review_email" required value="<%= locals.review_email %>"><br>
+
+        <label for="review_content">Review Message:</label><br>
+        <input type="textarea" name="review_content" id="review_content" required value="<%= locals.review_content %>"><br>
+
+        <label for="review_stars">Rating (Choose a number between 1 and 5):</label><br>
+        <input type="number" min="1" max="5" name="review_stars" id="review_stars" required value="<%= locals.review_stars %>"><br>
+        
+       <div class="center">
+        <input type="submit" name="submit" value="Publish Review " class="login-submit">
+       </div>
+     </form>
+   </div>
+<div>
+    <h3>Read Past Reviews</h3>
+</div>
+<%- reviewList %> <br>
+</div>
