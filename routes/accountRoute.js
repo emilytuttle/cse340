@@ -18,6 +18,12 @@ router.post("/updateNames",
   regValidate.checkNameChangeData,
   utilities.handleErrors(accountController.updateNames))
 
+router.post("/updatePassword",
+  regValidate.passwordUpdateRules(),
+  regValidate.checkPasswordChangeData,
+  utilities.handleErrors(accountController.updatePassword)
+)
+
 // post
 // Process the registration data
 router.post(

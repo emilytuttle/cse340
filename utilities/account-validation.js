@@ -92,6 +92,29 @@ const accountModel = require("../models/account-model")
     ]
   }
 
+
+  /*  **********************************
+  *  Registration Data Validation Rules
+  * ********************************* */
+  validate.passwordUpdateRules = () => {
+    return [
+    
+        // password is required and must be strong password
+      body("account_password")
+      .trim()
+      .notEmpty()
+      .isStrongPassword({
+        minLength: 12,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+      .withMessage("Password does not meet requirements."),
+      
+    ]
+  }
+
   validate.loginRules = () => {
     return [
      
@@ -167,6 +190,25 @@ validate.checkRegData = async (req, res, next) => {
     next()
   }
 
+    /* ******************************
+ * Check data and return errors or continue 
+ * ***************************** */
+    validate.checkPasswordChangeData = async (req, res, next) => {
+      const { account_password } = req.body
+      let errors = []
+      errors = validationResult(req)
+      if (!errors.isEmpty()) {
+        let nav = await utilities.getNav()
+        res.render("account/update", {
+          errors,
+          title: "Update Account",
+          nav,
+          account_password
+        })
+        return
+      }
+      next()
+    }
 
 
 
